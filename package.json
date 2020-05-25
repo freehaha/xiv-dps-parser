@@ -1,0 +1,22 @@
+{
+  "name": "xiv-parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Freehaha <freehaha@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@types/async": "^3.2.3",
+    "@types/binary-parser": "^1.5.0",
+    "@types/node": "^14.0.5",
+    "async": "^3.2.0",
+    "binary-parser": "^1.6.2",
+    "level": "^6.0.1",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.3",
+    "xiv-packet": "^1.1.2",
+    "zeromq": "^6.0.0-beta.6"
+  }
+}
