@@ -9,7 +9,7 @@ interface CharacterStore {
   saveCharacter(id: number, name: string): void;
 }
 
-class Parser {
+class DpsParser {
   actors: Map<number, Actor>;
   lastFightEndSignal: number = 0;
   startTime: number = 0;
@@ -226,4 +226,4 @@ class Parser {
   }
 }
 
-export default Parser;
+export default DpsParser;

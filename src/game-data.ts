@@ -96,6 +96,7 @@ const ACTION_JOB = new Map([
   ["Heated Split Shot", "MCH"],
   ["Hard Slash", "DRK"],
   ["Malefic III", "AST"],
+  ["Malefic IV", "AST"],
   ["Hakaze", "SAM"],
   ["Jolt II", "RDM"],
   ["Keen Edge", "GNB"],

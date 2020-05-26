@@ -29,6 +29,7 @@ function _getStatusName(id: number): string {
   }
   return "";
 }
+
 class Actor {
   hp: number;
   maxHp: number;
@@ -59,6 +60,7 @@ class Actor {
     this.dots = [];
     this._recentDots = [];
   }
+
   damage(event: ActionEventBase, effect: Effect) {
     let skillId = event.skill;
     let skill = actions[skillId];
@@ -235,11 +237,13 @@ class Actor {
       duration: status.duration,
     });
   }
+
   removeStatus(event: TickEvent) {
     if (event.skill === THUNDERCLOUD) {
       this._t3pEnd = event.time;
     }
   }
+
   dotDamage(damage: number) {
     if (this.owner) {
       this.owner.petDamage(damage);
@@ -248,9 +252,11 @@ class Actor {
     this.dotCount++;
     this.damageDealt += damage;
   }
+
   petDamage(damage: number) {
     this.damageDealt += damage;
   }
+
   death() {
     this.deathCount++;
   }
