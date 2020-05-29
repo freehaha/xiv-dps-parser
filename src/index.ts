@@ -23,10 +23,11 @@ class DpsParser {
     this.charCache.set(LB_ACTOR, "Limit Break");
     this.charStore = store;
     this.actors = new Map();
-    this._initActor(LB_ACTOR);
+    this.getActor(LB_ACTOR);
   }
 
-  _initActor(id: number): Actor {
+  /* get actor by id */
+  getActor(id: number): Actor {
     if (!this.actors.has(id)) {
       let actor = new Actor(id);
       actor.isNPC = id & 0x10000000 ? false : true;
@@ -63,13 +64,13 @@ class DpsParser {
         case EventTypes.ACTION8:
         case EventTypes.ACTION16:
         case EventTypes.ACTION24: {
-          let source = this._initActor(event.source);
+          let source = this.getActor(event.source);
           if (source.job === "Unknown") {
             source.job = getJobFromAction(event.skill);
           }
           source.active = true;
           event.effects.forEach((effect) => {
-            let target = this._initActor(event.target);
+            let target = this.getActor(event.target);
             if (effect.flags & 0x80) {
               target = source;
             }
@@ -104,25 +105,25 @@ class DpsParser {
           break;
         }
         case EventTypes.STATUS_LIST: {
-          let actor = this._initActor(event.target);
+          let actor = this.getActor(event.target);
           actor.setStatus(event.status);
           break;
         }
         case EventTypes.STATUS_STATS: {
-          let actor = this._initActor(event.target);
+          let actor = this.getActor(event.target);
           actor.hp = event.hp;
           actor.maxHp = event.maxHp;
           actor.shield = event.shield;
           break;
         }
         case EventTypes.STATUS: {
-          let actor = this._initActor(event.target);
+          let actor = this.getActor(event.target);
           actor.applyStatus(event);
           break;
         }
         case EventTypes.ALLIANCE_INFO: {
           for (let pc of event.pcs) {
-            let actor = this._initActor(pc.id);
+            let actor = this.getActor(pc.id);
             actor.job = getJobName(pc.job);
             actor.name = pc.name;
             this.charStore.saveCharacter(pc.id, pc.name);
@@ -131,7 +132,7 @@ class DpsParser {
         }
         case EventTypes.PARTY_INFO: {
           for (let pc of event.pcs) {
-            let actor = this._initActor(pc.id);
+            let actor = this.getActor(pc.id);
             this.charStore.saveCharacter(pc.id, pc.name);
             actor.job = getJobName(pc.job);
             actor.name = pc.name;
@@ -142,15 +143,15 @@ class DpsParser {
           break;
         }
         case EventTypes.NPC_SPAWN: {
-          let actor = this._initActor(event.source);
+          let actor = this.getActor(event.source);
           actor.isNPC = true;
           if (event.owner && event.owner !== 0xe0000000) {
-            actor.owner = this._initActor(event.owner);
+            actor.owner = this.getActor(event.owner);
           }
           break;
         }
         case EventTypes.PC: {
-          let actor = this._initActor(event.source);
+          let actor = this.getActor(event.source);
           actor.name = event.actorInfo.name;
           this.charStore.saveCharacter(actor.id, actor.name);
           actor.job = getJobName(event.actorInfo.job);
@@ -158,40 +159,40 @@ class DpsParser {
           break;
         }
         case EventTypes.OBJ_SPAWN: {
-          let actor = this._initActor(event.source);
+          let actor = this.getActor(event.source);
           actor.isObj = true;
-          actor.owner = this._initActor(event.actorInfo.owner);
+          actor.owner = this.getActor(event.actorInfo.owner);
           break;
         }
         case EventTypes.TICK: {
           switch (event.tickType) {
             case "STATUS_GAIN": {
-              let actor = this._initActor(event.target);
+              let actor = this.getActor(event.target);
               actor.applyStatus(event);
               break;
             }
             case "STATUS_REMOVE": {
-              let actor = this._initActor(event.target);
+              let actor = this.getActor(event.target);
               actor.removeStatus(event);
               break;
             }
             case "DEATH": {
-              let actor = this._initActor(event.target);
+              let actor = this.getActor(event.target);
               actor.death();
               break;
             }
             case "DOT": {
               if (event.skill) {
-                this._initActor(event.source).dotDamage(event.value);
+                this.getActor(event.source).dotDamage(event.value);
               } else {
                 if (event.source === 0xe0000000) {
                   // dot ticks on pcs (from environment)
                   return;
                 }
-                let target = this._initActor(event.target);
+                let target = this.getActor(event.target);
                 let split = target.splitDotDamage(event);
                 split.forEach((damage, source) => {
-                  let actor = this._initActor(source);
+                  let actor = this.getActor(source);
                   actor.dotDamage(damage);
                 });
               }
