@@ -14,7 +14,7 @@ class DpsParser {
   lastFightEndSignal: number = 0;
   startTime: number = 0;
   endTime: number = 0;
-  ended: boolean = false;
+  ended: number = 0;
   private charStore: CharacterStore;
   private charCache: Map<number, string>;
 
@@ -88,7 +88,7 @@ class DpsParser {
               }
 
               if (!source.isNPC && !target.isNPC) {
-                console.warn("pc -> pc", event, source.name, target.name);
+                // console.warn("pc -> pc", event, source.name, target.name);
                 return;
               }
 
@@ -167,7 +167,6 @@ class DpsParser {
           switch (event.tickType) {
             case "STATUS_GAIN": {
               let actor = this._initActor(event.target);
-              console.log("gain status", event);
               actor.applyStatus(event);
               break;
             }
@@ -183,7 +182,7 @@ class DpsParser {
             }
             case "DOT": {
               if (event.skill) {
-                this.actors.get(event.source).dotDamage(event.value);
+                this._initActor(event.source).dotDamage(event.value);
               } else {
                 if (event.source === 0xe0000000) {
                   // dot ticks on pcs (from environment)
@@ -205,13 +204,14 @@ class DpsParser {
                 break;
               }
               if (
+                this.startTime > 0 &&
                 this.lastFightEndSignal &&
                 event.time - this.lastFightEndSignal < 10000
               ) {
                 break;
               }
               this.lastFightEndSignal = event.time;
-              this.ended = true;
+              this.ended = event.time;
               break;
             }
             default:

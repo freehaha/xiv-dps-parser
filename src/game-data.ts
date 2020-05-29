@@ -92,6 +92,7 @@ const ACTION_JOB = new Map([
   ["Blizzard III", "BLM"],
   ["Ruin III", "SMN"],
   ["Biolysis", "SCH"],
+  ["Broil III", "SCH"],
   ["Spinning Edge", "NIN"],
   ["Heated Split Shot", "MCH"],
   ["Hard Slash", "DRK"],

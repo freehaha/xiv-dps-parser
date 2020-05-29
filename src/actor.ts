@@ -203,8 +203,8 @@ class Actor {
     } else {
       statusId = event.skill;
       source = event.source;
-      console.log(this.statuses);
-      // FIXME how to determine duration from TickEvent
+      duration = 0;
+      // console.log(this.statuses);
     }
 
     if (statusId === THUNDERCLOUD) {
