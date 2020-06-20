@@ -9,6 +9,25 @@ interface CharacterStore {
   saveCharacter(id: number, name: string): void;
 }
 
+class MemoryCharStore implements CharacterStore {
+  chars: Map<number, string>;
+  constructor() {
+    this.chars = new Map();
+  }
+  getCharacter(id: number): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (this.chars.has(id)) {
+        resolve(this.chars.get(id));
+      } else {
+        reject("unknown");
+      }
+    });
+  }
+  saveCharacter(id: number, name: string): void {
+    this.chars.set(id, name);
+  }
+}
+
 class DpsParser {
   actors: Map<number, Actor>;
   lastFightEndSignal: number = 0;
@@ -23,7 +42,7 @@ class DpsParser {
     this.charCache.set(LB_ACTOR, "Limit Break");
     this.charStore = store;
     this.actors = new Map();
-    this.getActor(LB_ACTOR);
+    this.getActor(LB_ACTOR).job = "LB";
   }
 
   /* get actor by id */
@@ -76,10 +95,7 @@ class DpsParser {
             }
             if (DamagingEffect.has(effect.effectTypeName)) {
               // start fight from 1st damage
-              if (this.startTime === 0) {
-                this.startTime = event.time;
-                // console.log("start time", state.startTime);
-              } else {
+              if (this.startTime !== 0) {
                 this.endTime = event.time;
               }
 
@@ -198,12 +214,17 @@ class DpsParser {
               }
               break;
             }
-            case "4": {
-              // fight end?
-              //{"type":"TICK","skill":0,"param":0,"value":0,"source":0,"tickType":"4","time":1581766445456,"target":271557811}
+            case "INCOMBAT": {
+              let actor = this.getActor(event.target);
+              // combat start
+              if (this.startTime <= 0 && !actor.isNPC && event.skill === 1) {
+                this.startTime = event.time;
+                return;
+              }
               if (event.skill !== 0) {
                 break;
               }
+              // combat end
               if (
                 this.startTime > 0 &&
                 this.lastFightEndSignal &&
@@ -228,3 +249,4 @@ class DpsParser {
 }
 
 export default DpsParser;
+export { MemoryCharStore };

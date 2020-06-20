@@ -114,3 +114,34 @@ export function getJobFromAction(skill: number): string {
   }
   return "Unknown";
 }
+
+interface Mitigation {
+  type: "string";
+  value: number;
+}
+
+interface StatusEffect {
+  id: number;
+  name: string;
+  mit: Mitigation;
+}
+interface Action {
+  class: number | null;
+  id: number;
+  name: string;
+}
+
+export { StatusEffect };
+export function getStatus(id: number): StatusEffect {
+  if (statuses[id]) {
+    return statuses[id];
+  }
+  return null;
+}
+
+export function getAction(id: number): Action {
+  if (actions[id]) {
+    return actions[id];
+  }
+  return null;
+}
