@@ -5,12 +5,23 @@
   "author": "Freehaha <freehaha@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -p tsconfig.build.json",
+    "test": "mocha -r ts-node/register -w 'test/**/*.ts'"
   },
   "dependencies": {
     "@types/node": "^14.0.5",
     "tslib": "^2.0.0",
     "typescript": "^3.9.3",
-    "xiv-packet": "^2.1.0"
+    "xiv-packet": "^2.1.1"
+  },
+  "prettier": {
+    "semi": true
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
+    "ts-node": "^8.10.2"
   }
 }

@@ -249,4 +249,4 @@ class DpsParser {
 }
 
 export default DpsParser;
-export { MemoryCharStore };
+export { MemoryCharStore, CharacterStore };

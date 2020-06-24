@@ -22,6 +22,6 @@
     "strictFunctionTypes": false,
     "plugins": []
   },
-  "include": ["src"],
+  "include": ["src", "test"],
   "exclude": []
 }
