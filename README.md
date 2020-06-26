@@ -1,11 +1,8 @@
-# Install
-
-`npm install xiv-dps-parser`
-
 # How it works
 
-It uses data parsed from network using [xiv-packet](https://github.com/freehaha/xiv-packet).
-Character names and job detail are also read from network and stored in a
+It uses data parsed from network using [xiv-packet](https://github.com/freehaha/xiv-packet)
+and [xiv-network-parser](https://github.com/freehaha/xiv-network-parser)
+Character names and job detail are read from network and stored in a
 character store, meaning you need to have the parser open when you enter the
 instance/area in order to have it store people's names and ids.
 
@@ -13,7 +10,7 @@ In this package a memory store is provided to store the character names but you
 can implement a persistent store if you wish.
 
 It determines whether the fight ended by looking for the aggro control packet
-hence you will probably see fight getting segmented in dungeon. In raids, however,
+hence you will probably see fight getting segmented in dungeons. In raids, however,
 this should work as you normally expected.
 
 # Usage
