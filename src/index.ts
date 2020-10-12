@@ -30,7 +30,6 @@ class MemoryCharStore implements CharacterStore {
 
 class DpsParser {
   actors: Map<number, Actor>;
-  lastFightEndSignal: number = 0;
   startTime: number = 0;
   endTime: number = 0;
   ended: number = 0;
@@ -224,15 +223,10 @@ class DpsParser {
               if (event.skill !== 0) {
                 break;
               }
-              // combat end
-              if (
-                this.startTime > 0 &&
-                this.lastFightEndSignal &&
-                event.time - this.lastFightEndSignal < 10000
-              ) {
+              // combat ended already
+              if (this.ended) {
                 break;
               }
-              this.lastFightEndSignal = event.time;
               this.ended = event.time;
               break;
             }
