@@ -52,6 +52,8 @@ sock.on("message", (msg) => {
   });
   if (parser.ended) {
     console.log("fight ended");
+    let duration = (parser.endTime - startTime) / 1000; // time was in miliseconds
+    console.log(`duration ${duration}`);
     sock.close();
   }
 });
