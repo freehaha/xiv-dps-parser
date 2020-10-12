@@ -99,8 +99,12 @@ const ACTION_JOB = new Map([
   ["Malefic III", "AST"],
   ["Malefic IV", "AST"],
   ["Hakaze", "SAM"],
-  ["Jolt II", "RDM"],
   ["Keen Edge", "GNB"],
+
+  ["Jolt II", "RDM"],
+  ["Verthunder", "RDM"],
+  ["Veraero", "RDM"],
+
   ["Cascade", "DNC"],
   ["Standard Step", "DNC"],
 ]);
