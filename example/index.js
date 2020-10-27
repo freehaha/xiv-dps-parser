@@ -48,8 +48,8 @@ sock.on("message", (msg) => {
       name: actor.name,
       dps: actor.damageDealt / duration,
     });
-    console.table(table);
   });
+  console.table(table);
   if (parser.ended) {
     console.log("fight ended");
     let duration = (parser.endTime - startTime) / 1000; // time was in miliseconds
