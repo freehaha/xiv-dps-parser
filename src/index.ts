@@ -33,7 +33,6 @@ class DpsParser {
   startTime: number = 0;
   endTime: number = 0;
   ended: number = 0;
-  lastDamageEventTime: number = 0;
   private charStore: CharacterStore;
   private charCache: Map<number, string>;
 
@@ -44,7 +43,6 @@ class DpsParser {
     this.actors = new Map();
     this.getActor(LB_ACTOR).job = "LB";
     this.getActor(LB_ACTOR).hits = 1;
-    this.lastDamageEventTime = 0;
   }
 
   /* get actor by id */
@@ -100,8 +98,6 @@ class DpsParser {
               if (this.startTime !== 0) {
                 this.endTime = event.time;
               }
-              // last damaging event
-              this.lastDamageEventTime = event.time;
 
               if (effect.param === 0) {
                 // console.log(source.name, target.name, event.skill, effect);
