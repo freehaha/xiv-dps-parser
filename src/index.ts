@@ -221,13 +221,12 @@ class DpsParser {
                 this.startTime = event.time;
                 return;
               }
-              if (event.skill !== 0) {
-                break;
-              }
+              if (this.startTime <= 0) return;
+              if (event.skill !== 0) return;
               // combat ended already
-              if (this.ended) {
-                break;
-              }
+              if (this.ended) return;
+              // only measure PC's combat status
+              if (actor.isNPC) return;
               this.ended = event.time;
               break;
             }
