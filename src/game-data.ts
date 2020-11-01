@@ -87,7 +87,7 @@ const ACTION_JOB = new Map([
   ["Bootshine", "MNK"],
   ["Heavy Swing", "WAR"],
   ["True Thrust", "DRG"],
-  ["Brust Shot", "BRD"],
+  ["Burst Shot", "BRD"],
   ["Glare", "WHM"],
   ["Blizzard III", "BLM"],
   ["Ruin III", "SMN"],
