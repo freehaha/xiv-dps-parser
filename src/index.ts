@@ -159,7 +159,6 @@ class DpsParser {
         }
         case EventTypes.NPC_SPAWN: {
           let actor = await this.getActor(event.source);
-          console.log(actor, event.owner);
           if (event.owner && event.owner !== 0xe0000000) {
             actor.owner = await this.getActor(event.owner);
           }
