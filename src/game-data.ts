@@ -91,6 +91,7 @@ const ACTION_JOB = new Map([
   ["Glare", "WHM"],
   ["Blizzard III", "BLM"],
   ["Ruin III", "SMN"],
+  ["Tri-disaster", "SMN"],
   ["Biolysis", "SCH"],
   ["Broil III", "SCH"],
   ["Spinning Edge", "NIN"],
