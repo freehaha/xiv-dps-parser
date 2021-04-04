@@ -20,7 +20,7 @@ let charStore = new MemoryCharStore();
 let parser = new DpsParser(charStore);
 
 let sock = zmq.socket("sub");
-sock.connect("ipc:///tmp/ffxiv_packets");
+sock.connect("tcp://127.0.0.1:10801");
 sock.subscribe("p");
 sock.on("message", (msg) => {
   let header = packetHeader.parse(msg);
@@ -55,5 +55,6 @@ sock.on("message", (msg) => {
     let duration = (parser.endTime - startTime) / 1000; // time was in miliseconds
     console.log(`duration ${duration}`);
     sock.close();
+    process.exit(0);
   }
 });
