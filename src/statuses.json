@@ -3849,7 +3849,11 @@
   },
   {
     "id": 956,
-    "name": "Wheel of Fortune"
+    "name": "Wheel of Fortune",
+    "mit": {
+      "type": "all",
+      "value": 10
+    }
   },
   {
     "id": 957,
@@ -4880,7 +4884,11 @@
   },
   {
     "id": 1206,
-    "name": "Wheel of Fortune"
+    "name": "Wheel of Fortune",
+    "mit": {
+      "type": "all",
+      "value": 10
+    }
   },
   {
     "id": 1207,
